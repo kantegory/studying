@@ -1,28 +1,76 @@
-def encrypt_caesar(plaintext,shift):
+def encrypt_caesar(plaintext, shift):
+    """
+    >>> encrypt_caesar("PYTHON")
+    'SBWKRQ'
+    >>> encrypt_caesar("python")
+    'sbwkrq'def encrypt_caesar(plaintext, shift):
+    """
+    >>> encrypt_caesar("PYTHON")
+    'SBWKRQ'
+    >>> encrypt_caesar("python")
+    'sbwkrq'
+    >>> encrypt_caesar("")
+    ''
+    """
     ciphertext = ""
-    for i in range(0,len(plaintext)):
-        if ((ord(plaintext[i])+shift>63) and (ord(plaintext[i])+shift<91)) or ((ord(plaintext[i])+shift>96) and (ord(plaintext[i])+shift<123)):
-            ciphertext += chr(ord(plaintext[i])+shift)
+    for i in range(0, len(plaintext)):
+        if ((ord(plaintext[i]) + shift > 63) and (ord(plaintext[i]) + shift < 91)) or ((ord(plaintext[i]) + shift > 96) and (ord(plaintext[i]) + shift < 123)):
+            ciphertext += chr(ord(plaintext[i]) + shift)
+        elif ((ord(plaintext[i]) + shift < 65) or (ord(plaintext[i]) + shift > 91)) or ((ord(plaintext[i]) + shift < 96) or (ord(plaintext[i]) + shift > 122)):
+            ciphertext += chr(ord(plaintext[i]) + shift - 26)
         else:
-            ciphertext += chr(ord(plaintext[i])+shift-26)
-        if (ord(plaintext[i])<63) or ((ord(plaintext[i])>91) and (ord(plaintext[i])<96)) or (ord(plaintext[i])>123):
-            return print('Error. This symbol is incorrect.')
-    return print(ciphertext)
+            ciphertext += plaintext[i]
+    return ciphertext
 
-plaintext = input()
-shift = int(input())
-encrypt_caesar(plaintext,shift)
 
-def decrypt_caesar(ciphertext,shift):
+def decrypt_caesar(ciphertext, shift):
+    """
+    >>> decrypt_caesar("SBWKRQ")
+    'PYTHON'
+    >>> decrypt_caesar("sbwkrq")
+    'python'
+    >>> decrypt_caesar("")
+    ''
+    """
     plaintext = ""
-    for i in range(0,len(ciphertext)):
-        if ((ord(ciphertext[i])-shift>63) and (ord(ciphertext[i])-shift<91)) or ((ord(ciphertext[i])-shift>96) and (ord(ciphertext[i])-shift<123)):
-            plaintext += chr(ord(ciphertext[i])-shift)
+    for i in range(0, len(ciphertext)):
+        if ((ord(ciphertext[i]) - shift > 63) and (ord(ciphertext[i]) - shift < 91)) or ((ord(ciphertext[i]) - shift > 96) and (ord(ciphertext[i]) - shift < 123)):
+            plaintext += chr(ord(ciphertext[i]) - shift)
+        elif ((ord(ciphertext[i]) - shift < 65) or (ord(ciphertext[i]) - shift > 91)) or ((ord(ciphertext[i]) - shift < 96) or (ord(ciphertext[i]) - shift > 123)):
+            plaintext += chr(ord(ciphertext[i]) - shift + 26)
         else:
-            plaintext += chr(ord(ciphertext[i])-shift+26)
-        if (ord(ciphertext[i])<63) or ((ord(ciphertext[i])>91) and (ord(ciphertext[i])<96)) or (ord(ciphertext[i])>123):
-            return print('Error. This symbol is incorrect.')
-    return print(plaintext)
+            plaintext += ciphertext[i]
+    return plaintext
 
-ciphertext = input()
-decrypt_caesar(ciphertext,shift)
+    >>> encrypt_caesar("")
+    ''
+    """
+    ciphertext = ""
+    for i in range(0, len(plaintext)):
+        if ((ord(plaintext[i]) + shift > 63) and (ord(plaintext[i]) + shift < 91)) or ((ord(plaintext[i]) + shift > 96) and (ord(plaintext[i]) + shift < 123)):
+            ciphertext += chr(ord(plaintext[i]) + shift)
+        elif ((ord(plaintext[i]) + shift < 65) or (ord(plaintext[i]) + shift > 91)) or ((ord(plaintext[i]) + shift < 96) or (ord(plaintext[i]) + shift > 122)):
+            ciphertext += chr(ord(plaintext[i]) + shift - 26)
+		else:
+			ciphertext += plaintext[i]
+    return ciphertext
+
+
+def decrypt_caesar(ciphertext, shift):
+    """
+    >>> decrypt_caesar("SBWKRQ")
+    'PYTHON'
+    >>> decrypt_caesar("sbwkrq")
+    'python'
+    >>> decrypt_caesar("")
+    ''
+    """
+    plaintext = ""
+    for i in range(0, len(ciphertext)):
+        if ((ord(ciphertext[i]) - shift > 63) and (ord(ciphertext[i]) - shift < 91)) or ((ord(ciphertext[i]) - shift > 96) and (ord(ciphertext[i]) - shift < 123)):
+            plaintext += chr(ord(ciphertext[i]) - shift)
+        elif ((ord(ciphertext[i]) - shift < 65) or (ord(ciphertext[i]) - shift > 91)) or ((ord(ciphertext[i]) - shift < 96) or (ord(ciphertext[i]) - shift > 123)):
+            plaintext += chr(ord(ciphertext[i]) - shift + 26)
+		else:
+			plaintext += ciphertext[i]
+    return plaintext
