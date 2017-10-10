@@ -1,12 +1,16 @@
+import time
+import random
+
+
 def read_sudoku(filename):
-    """ Ïðî÷èòàòü Ñóäîêó èç óêàçàííîãî ôàéëà """
+    """ ÐŸÑ€Ð¾Ñ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ Ð¡ÑƒÐ´Ð¾ÐºÑƒ Ð¸Ð· ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð° """
     digits = [c for c in open(filename).read() if c in '123456789.']
     grid = group(digits, 9)
     return grid
 
 
 def display(values):
-    """Âûâîä Ñóäîêó """
+    """Ð’Ñ‹Ð²Ð¾Ð´ Ð¡ÑƒÐ´Ð¾ÐºÑƒ """
     width = 2
     line = '+'.join(['-' * (width * 3)] * 3)
     for row in range(9):
@@ -27,7 +31,7 @@ def group(values, n):
 
 
 def get_row(values, pos):
-    """ Âîçâðàùàåò âñå çíà÷åíèÿ äëÿ íîìåðà ñòðîêè, óêàçàííîé â pos
+    """ Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð²ÑÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð´Ð»Ñ Ð½Ð¾Ð¼ÐµÑ€Ð° ÑÑ‚Ñ€Ð¾ÐºÐ¸, ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð¹ Ð² pos
 
     >>> get_row([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']], (0, 0))
     ['1', '2', '.']
@@ -41,7 +45,7 @@ def get_row(values, pos):
 
 
 def get_col(values, pos):
-    """ Âîçâðàùàåò âñå çíà÷åíèÿ äëÿ íîìåðà ñòîëáöà, óêàçàííîãî â pos
+    """ Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð²ÑÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð´Ð»Ñ Ð½Ð¾Ð¼ÐµÑ€Ð° ÑÑ‚Ð¾Ð»Ð±Ñ†Ð°, ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð² pos
 
     >>> get_col([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']], (0, 0))
     ['1', '4', '7']
@@ -50,16 +54,24 @@ def get_col(values, pos):
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    pass
+    row, col = pos
+    return [values[i][col] for i in range(0, len(values))]
 
 
 def get_block(values, pos):
-    """ Âîçâðàùàåò âñå çíà÷åíèÿ èç êâàäðàòà, â êîòîðûé ïîïàäàåò ïîçèöèÿ pos """
-    pass
+    """ Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð²ÑÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¸Ð· ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð°, Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð¿Ð¾Ð¿Ð°Ð´Ð°ÐµÑ‚ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ pos """
+    row, col = pos
+    blockValues = []
+    enRow = row // 3 * 3
+    enCol = col // 3 * 3
+    for i in range(enRow, enRow + 3):
+        for j in range(enCol, enCol + 3):
+            blockValues.append(values[i][j])
+    return blockValues
 
 
 def find_empty_positions(grid):
-    """ Íàéòè ïåðâóþ ñâîáîäíóþ ïîçèöèþ â ïàçëå
+    """ ÐÐ°Ð¹Ñ‚Ð¸ Ð¿ÐµÑ€Ð²ÑƒÑŽ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½ÑƒÑŽ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ Ð² Ð¿Ð°Ð·Ð»Ðµ
 
     >>> find_empty_positions([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']])
     (0, 2)
@@ -68,34 +80,104 @@ def find_empty_positions(grid):
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    pass
+    for i in range(len(grid)):
+        for j in range(len(grid)):
+            if values[i][j] == '.':
+                return (i, j)
+    return (-1, -1)
 
 
 def find_possible_values(grid, pos):
-    """ Âåðíóòü âñå âîçìîæíûå çíà÷åíèÿ äëÿ óêàçàííîé ïîçèöèè """
-    pass
+    """ Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒ Ð²ÑÐµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ñ‹Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð´Ð»Ñ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð¹ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸ """
+    posValues = {1, 2, 3, 4, 5, 6, 7, 8, 9}
+    posCol = set(get_col(grid, pos))
+    posRow = set(get_row(grid, pos))
+    posGetBlock = get_block(grid, pos)
+    posValues -= posCol
+    posValues -= posRow
+    for i in range(3):
+        posValues -= set(posGetBlock[i])
+    return posValues
 
 
 def solve(grid):
-    """ Ðåøåíèå ïàçëà, çàäàííîãî â grid """
-    """ Êàê ðåøàòü Ñóäîêó?
-        1. Íàéòè ñâîáîäíóþ ïîçèöèþ
-        2. Íàéòè âñå âîçìîæíûå çíà÷åíèÿ, êîòîðûå ìîãóò íàõîäèòüñÿ íà ýòîé ïîçèöèè
-        3. Äëÿ êàæäîãî âîçìîæíîãî çíà÷åíèÿ:
-            3.1. Ïîìåñòèòü ýòî çíà÷åíèå íà ýòó ïîçèöèþ
-            3.2. Ïðîäîëæèòü ðåøàòü îñòàâøóþñÿ ÷àñòü ïàçëà
+    """ Ð ÐµÑˆÐµÐ½Ð¸Ðµ Ð¿Ð°Ð·Ð»Ð°, Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð² grid """
+    """ ÐšÐ°Ðº Ñ€ÐµÑˆÐ°Ñ‚ÑŒ Ð¡ÑƒÐ´Ð¾ÐºÑƒ?
+        1. ÐÐ°Ð¹Ñ‚Ð¸ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½ÑƒÑŽ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ
+        2. ÐÐ°Ð¹Ñ‚Ð¸ Ð²ÑÐµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ñ‹Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¼Ð¾Ð³ÑƒÑ‚ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑŒÑÑ Ð½Ð° ÑÑ‚Ð¾Ð¹ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸
+        3. Ð”Ð»Ñ ÐºÐ°Ð¶Ð´Ð¾Ð³Ð¾ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾Ð³Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ:
+            3.1. ÐŸÐ¾Ð¼ÐµÑÑ‚Ð¸Ñ‚ÑŒ ÑÑ‚Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð½Ð° ÑÑ‚Ñƒ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ
+            3.2. ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ Ñ€ÐµÑˆÐ°Ñ‚ÑŒ Ð¾ÑÑ‚Ð°Ð²ÑˆÑƒÑŽÑÑ Ñ‡Ð°ÑÑ‚ÑŒ Ð¿Ð°Ð·Ð»Ð°
     """
-    pass
+    emptyPosValue = find_empty_positions(grid)
+    if emptyPosValue == (-1, -1):
+        return grid
+    posValues = find_possible_values(grid, emptyPosValue)
+    if not len(posValues):
+        return
+    col, row = posValues
+    for i in range(len(posValues)):
+        grid[col][row] = i
+        solSud = solve(grid)
+        grid[col][row] = '.'
+        if solSud != -1:
+            return grid
+    return -1
 
 
 def check_solution(solution):
-    """ Åñëè ðåøåíèå solution âåðíî, òî âåðíóòü True, â ïðîòèâíîì ñëó÷àå False """
-    pass
+    """ Ð•ÑÐ»Ð¸ Ñ€ÐµÑˆÐµÐ½Ð¸Ðµ solution Ð²ÐµÑ€Ð½Ð¾, Ñ‚Ð¾ Ð²ÐµÑ€Ð½ÑƒÑ‚ÑŒ True, Ð² Ð¿Ñ€Ð¾Ñ‚Ð¸Ð²Ð½Ð¾Ð¼ ÑÐ»ÑƒÑ‡Ð°Ðµ False """
+    for i in range(9):
+        correct = {1, 2, 3, 4, 5, 6, 7, 8, 9. '.'}
+        if correct - set(get_row(solution, (i, 0))) != {'.'}:
+            return False
+        correct = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '.'}
+        if correct - set(get_col(solution, (0, i))) != {'.'}:
+            return False
+    for i in ((0, 0), (0, 3), (0, 6), (3, 0), (3, 3), (3, 6)):
+        correct = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '.'}
+        for n in get_block(solution, i):
+            correct -= set(n)
+        if correct != {'.'}:
+            return False
+    return True
+
+def generate_sudoku(N):
+    """ Ð“ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ ÑÑƒÐ´Ð¾ÐºÑƒ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð½Ð° N ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð²
+    >>> grid = generate_sudoku(40)
+    >>> sum(1 for row in grid for e in row if e == '.')
+    40
+    >>> solution = solve(grid)
+    >>> check_solution(solution)
+    True
+    >>> grid = generate_sudoku(1000)
+    >>> sum(1 for row in grid for e in row if e == '.')
+    81
+    >>> solution = solve(grid)
+    >>> check_solution(solution)
+    True
+    >>> grid = generate_sudoku(0)
+    >>> sum(1 for row in grid for e in row if e == '.')
+    0
+    >>> solution = solve(grid)
+    >>> check_solution(solution)
+    True
+    """
+    N -= 81
+    grid = [['.' for i in range(9)] for i in range(9)]
+    grid = solve(grid)
+    emptyElem = [(i, j) for i in range(9) for j in range(9)]
+    for k in range(N):
+        remElem = random.choice(emptyElem)
+        emptyElem.remove(remElem)
+        grid[remElem[0]][remElem[1]] = '.'
+    return grid
 
 
 if __name__ == '__main__':
-    for fname in ['puzzle1.txt', 'puzzle2.txt', 'puzzle3.txt']:
+    for fname in ('puzzle1.txt', 'puzzle2.txt', 'puzzle3.txt'):
         grid = read_sudoku(fname)
-        display(grid)
-        solution = solve(grid)
-        display(solution)
+        start = time.time()
+        solve(grid)
+        end = time.time()
+        print(fname + ": " + str(end - start))
