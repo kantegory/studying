@@ -119,9 +119,9 @@ def solve(grid):
     for i in range(len(posValues)):
         grid[col][row] = i
         solSud = solve(grid)
-        grid[col][row] = '.'
         if solSud != -1:
             return grid
+    grid[col][row] = '.'
     return -1
 
 
