@@ -15,16 +15,33 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
  
 $sql = "INSERT INTO abit VALUES ('Ivanov_Ivan', '400', '1', '001', 'yes', 'IT', 'budget')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully <br>";
+  echo "<p>Created successfully <br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
+
+$sql = "INSERT INTO abit VALUES ('Ivanov_Petr', '401', '2', '002', 'yes', 'IT', 'budget')";
+
+if (mysqli_query($link, $sql)) {
+  echo "<p>Created successfully <br>";
+} else {
+  echo "<p>Error creating <br>" . mysqli_error($link);
+}
+
+$sql = "INSERT INTO abit VALUES ('Vasilyev_Petr', '402', '3', '003', 'yes', 'IT', 'budget')";
+
+if (mysqli_query($link, $sql)) {
+  echo "<p>Created successfully <br>";
+} else {
+  echo "<p>Error creating <br>" . mysqli_error($link);
+}
+
 
 $query ="CREATE TABLE IF NOT EXISTS college(
   id_college int(10) NOT NULL,
@@ -39,15 +56,15 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO college VALUES ('001', '0902', '001', 'IT', '25', '001')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
 
 
@@ -62,15 +79,15 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO kaf VALUES ('0902', 'programming', '001', 'IT')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
 
 
@@ -86,15 +103,31 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO exams VALUES ('1', '100', '100', '100', '300')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
+}
+
+$sql = "INSERT INTO exams VALUES ('2', '80', '80', '100', '260')";
+
+if (mysqli_query($link, $sql)) {
+  echo "<p>Created successfully<br>";
+} else {
+  echo "<p>Error creating <br>" . mysqli_error($link);
+}
+
+$sql = "INSERT INTO exams VALUES ('3', '100', '80', '100', '280')";
+
+if (mysqli_query($link, $sql)) {
+  echo "<p>Created successfully<br>";
+} else {
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
 
 $query ="CREATE TABLE IF NOT EXISTS faculty (
@@ -109,15 +142,15 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO faculty VALUES ('001', '0902', 'ITs', 'IT', '25')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
 
 $query = "CREATE TABLE IF NOT EXISTS exam_balls(
@@ -130,14 +163,14 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO exam_balls VALUES ('0001', '309', '247')";
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
 
 $query ="CREATE TABLE IF NOT EXISTS reg(
@@ -161,16 +194,33 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO reg VALUES ('01', '0101', 'Ivanov_Ivan', '400', '001', 'budget', '275', 'IT', '300', '25', '001', '001', '0001' , '0001')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
+
+$sql = "INSERT INTO reg VALUES ('02', '0101', 'Ivanov_Petr', '401', '002', 'budget', '275', 'IT', '300', '25', '001', '001', '0002' , '0001')";
+
+if (mysqli_query($link, $sql)) {
+  echo "<p>Created successfully<br>";
+} else {
+  echo "<p>Error creating <br>" . mysqli_error($link);
+}
+
+$sql = "INSERT INTO reg VALUES ('03', '0101', 'Vasilyev_Petr', '403', '003', 'budget', '275', 'IT', '300', '25', '001', '001', '0003' , '0001')";
+
+if (mysqli_query($link, $sql)) {
+  echo "<p>Created successfully<br>";
+} else {
+  echo "<p>Error creating <br>" . mysqli_error($link);
+}
+
 
 $query ="CREATE TABLE IF NOT EXISTS `secretarys` (
   id_secretary int(10) NOT NULL AUTO_INCREMENT,
@@ -182,15 +232,15 @@ $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($lin
 
 if($result)
 {
-    echo "Выполнение запроса прошло успешно <br>";
+    echo "<p>Выполнение запроса прошло успешно <br>";
 }
 
 $sql = "INSERT INTO secretarys VALUES ('0101', 'Alex', '001')";
 
 if (mysqli_query($link, $sql)) {
-  echo "Created successfully<br>";
+  echo "<p>Created successfully<br>";
 } else {
-  echo "Error creating <br>" . mysqli_error($link);
+  echo "<p>Error creating <br>" . mysqli_error($link);
 }
 
 mysqli_close($link);

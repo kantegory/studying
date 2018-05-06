@@ -10,15 +10,16 @@
 	<input type = 'submit' name = 'button'>
 	</form>
 </body>
-</html
+</html>
+
 <?php
 
 include 'connection.php';
 
 if(isset($_GET['button']))
 {
-	$input_1 = $_GET['input_1'];
-	$input_2 = $_GET['input_2'];
+	$input_1 = strtr(trim($_GET['input_1']), '*', '%');
+	$input_2 = strtr(trim($_GET['input_2']), '*', '%');
 
 	$query = "SELECT abit.name, kaf.name_kaf FROM abit JOIN kaf 
 		ON abit.specialization = kaf.name_specialization

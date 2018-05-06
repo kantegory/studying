@@ -1,17 +1,23 @@
 <?php
 
-include 'connection.php';
+include "connection.php";
 
-$query = "SELECT abit.name, 100 - (exam_balls.max_exam_balls - exams.sum_exam_balls) AS chance
-          FROM abit JOIN (exam_balls JOIN exams ON exam_balls.id_exam_balls = exams.id_exam) 
-		  ON abit.id_abiturient = exams.id_exam";
+$query = "SELECT abit.name, kaf.name_kaf, id_abiturient FROM abit JOIN kaf 
+		ON abit.specialization = kaf.name_specialization";
 
 $result = mysqli_query($link, $query);
 
-echo "<table border = 1 align=center> <tr> <td> Имя </td> <td> Шанс </td></tr>";
+echo "<table border = 1 align=center>";
+echo "<tr><td>Имя</td>";
+echo "<td>Кафедра</td>";
+echo "<td colspan = 2>Редактировать</td></tr>";
+
 
 while($row = mysqli_fetch_array($result)) {
-	echo "<tr><td>" . $row['name']. "</td><td>" . $row['chance'] . "</td></tr>";
+	echo "<tr><td>" . $row['name']. "</td>";
+	echo "<td>" . $row['name_kaf'] . "</td>";
+	echo "<td><a href = './edit.php?id_abiturient=" . $row['id_abiturient'] . "&input_1=" . $row['name'] . "&input_2=" . $row['name_kaf'] . "'>Update</a></td>";
+	echo "<td><a href = './delete.php?id_abiturient=". $row['id_abiturient'] . "'>Delete</a></td></tr>";
 }
 
 echo "</table>";
