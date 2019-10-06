@@ -38,7 +38,7 @@ if(isset($_GET['button']))
 	$result = mysqli_query($link, $query);
 	
 	$new_spec = mysqli_fetch_assoc(mysqli_query($link, "SELECT name_specialization FROM kaf WHERE name_kaf = '" . $input_2 . "';"))['name_specialization'];
-	print_r($new_spec);
+	
 	$query = "UPDATE abit 
 	SET abit.specialization ='" . $new_spec . "'
 	WHERE abit.id_abiturient ='" . $id . "';";
@@ -66,7 +66,6 @@ if(isset($_GET['button']))
 		echo "<option>";
 		echo $kaf[$i];
 		echo "</option>";
-		print_r($kaf);
 		}
 	?>
 	</td></tr>

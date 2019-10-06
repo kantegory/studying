@@ -3,6 +3,7 @@
 // script for add record
 
 include "connection.php";
+
 if(isset($_GET['button']))
 {
 	$name = $_GET['name']; 
@@ -40,7 +41,7 @@ if(isset($_GET['button']))
 	<p> Специальность: 
 	<p> <input name = 'specialization' value = 'IT' type = 'radio'> IT 
 	<p> <input name = 'specialization' value = 'DATA' type = 'radio'> DATA
-	<p> <input name = 'specialization' value = 'WEB-DEV' type = 'radio'> WEB-DEV
+	<p> <input name = 'specialization' value = 'WEB' type = 'radio'> WEB
 	<p><input name = 'button' type = 'submit'>
 </form>
 </body>

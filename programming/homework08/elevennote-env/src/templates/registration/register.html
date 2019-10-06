@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="welcome" class="row">
+    <div class="col-12">
+        <main>
+        <h3>Sign Up for ElevenNote</h3>
+        {% if form.errors %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'accounts:register' %}" method="post" accept-charset="utf-8">
+            {% csrf_token %}
+            {% include 'includes/form.html' %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <input class="btn btn-outline-success" type="submit" value="Sign Up"/>
+            <span class="login">Already have an account? <a href="{% url 'accounts:login' %}">Sign in</a></span>
+        </form>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

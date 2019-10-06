@@ -2,7 +2,7 @@
 
 include 'connection.php'; 
 
-$query ="CREATE TABLE IF NOT EXISTS abit(
+$query = "CREATE TABLE IF NOT EXISTS abit(
   name varchar(255) NOT NULL,
   passport int(15) NOT NULL,
   id_abiturient int(10) NOT NULL AUTO_INCREMENT,
